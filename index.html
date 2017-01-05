@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PYŁY</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+
+  <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+</head>
+<body>
+    <!--Loader appears when the website is loading-->
+    <div class="loader"></div>
+    <!--Whole content of the website-->
+    <div class="container">
+      <!--Header-->
+      <div class="row">
+        <div class="col-sm-13" id="title">
+            <img id="header" src="SEE2.png" />
+        </div>
+      </div>
+      <!--Navigation-->
+      <div class="row">
+          <nav class="navbar navbar-default">
+             <div class="container-fluid">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="#">Air monitoring system</a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Map <span class="sr-only">(current)</span></a></li>
+                        <li><a href="calendar.html">Calendar</a></li>
+                        <li><a href="calendar.html">Info and standards</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Contact</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+      </div>
+      <!--Main Content: map and information with options-->
+      <div class="row">
+          <!-- Map with changing hour option-->
+          <div class="col-sm-8" id="mapview">
+              <!-- Map -->
+              <div id="map" style="width: 730px; height: 500px"></div>
+              <!--Slider to choose hour-->
+              <div id="time">
+                  <div class="slide">
+                      <button data-toggle="tooltip" title="Cick to animate" id="animate_button" data-placement="bottom"><span id="play" class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></button>
+                      <span id="time" class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                      <div id="slider">
+                          <div id="custom-handle" class="ui-slider-handle"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Current information with options -->
+          <div class="col-sm-4" id="currentinfo">
+              <!-- Changing dust type -->
+              <div class="row">
+                  <button type="button" class="btn btn-info pm-choose pm-chosen" id="pm10-button">PM 10</button>
+                  <button type="button" class="btn btn-info pm-choose" id="pm25-button">PM 2.5</button>
+              </div>
+              <!-- Information about current date and hour -->
+              <div class="row">
+                  <div class="panel panel-default" id="mypanel">
+                      <div class="panel-heading">
+                          <h3 class="panel-title">Current view</h3>
+                      </div>
+                      <div class="panel-body">
+                          <div id="info-time"><div class="infotitle"><span id="time-glyph" class="glyphicon glyphicon-time" aria-hidden="true"></span> Measurment time: </div><div id="measurment-time"></div></div>
+                          <div id="info-date"><div class="infotitle"><span id="date-glyph" class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Measurment date: </div><div id="measurment-date"></div></div>
+                      </div>
+                  </div>
+              </div>
+              <!-- Changing date -->
+              <div class="row">
+                  <div class="panel panel-info">
+                      <div class="panel-heading">Pick a date</div>
+                      <div class="panel-body">
+                          <div class="date-picker">
+                              <p>Date: <input type="text" id="datepicker"></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Modal - window appearing after clicking on sensor, it shows graph -->
+      <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Sensor name-->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="float:left"></h4>
+                    <p id="sensor_name" style="display: none"></p>
+                    <div id="choose-sensor" style="display: none">
+                         <label style=" margin-top: 5px; margin-right: 20px; float: right;"> Select sensor to compare:
+                             <select id="select-sensor-id">
+                                 <optgroup label="Public sensors">
+                                   <option value="1">Aleje Krasińskiego</option>
+                                   <option value="2">Złoty Róg</option>
+                                   <option value="3">Osiedle Piastów</option>
+                                   <option value="4">Kurdwanów</option>
+                                   <option value="5">Dietla</option>
+                                   <option value="6">Nowa Huta</option>
+                                 </optgroup>
+                                 <optgroup label="Private sensors">
+                                   <option value="95">raspi95</option>
+                                   <option value="96">raspi96</option>
+                                   <option value="97">raspi97</option>
+                                   <option value="98">raspi98</option>
+                                 </optgroup>
+                               </select>
+                         </label>
+                     </div>
+                    <button id = "compare-graphs" type="button" class="btn btn-default" style="float:right; margin-right: 20px;">
+                        <span id="compare" class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> Compare graphs
+                    </button>
+                </div>
+                <!-- Graph -->
+                <div class="modal-body">
+                    <div id="graph"></div>
+                    <div id="graph2" style="display: none"></div>
+                </div>
+                <!-- Changing graph options and downloading CSV -->
+                <div class="modal-footer">
+                    <div id="column-to-extend">
+                        <div class="panel panel-info"><div class="panel-heading" id="graph-info"><strong>Change the graph</strong> to show data from certain day, month or chosen period of time. </div></div>
+                        <div>
+                            <label> Select type of dust:
+                                <select id="select-dust">
+                                   <option value="pm10">PM 10</option>
+                                   <option value="pm25">PM 2.5</option>
+                                </select>
+                            </label>
+                            <label> Select period of time:
+                                <select id="select-time">           
+                                    <option value="day">Day</option>
+                                    <option value="month">Month</option>
+                                    <option value="custom">Few days</option>
+                                </select>
+                            </label>
+                        </div>
+                    <div>
+                        <!-- Choosing any period of time -->
+                        <span id="custom-picker">
+                            <label for="from">From</label>
+                            <input type="text" id="from" name="from">
+                            <label for="to">to</label>
+                            <input type="text" id="to" name="to">
+                        </span>
+                        <!-- Choosing certain day -->
+                        <span class="date-picker2">
+                            <label> Date: <input type="text" id="datepicker2"> </label>
+                        </span>
+                        <!-- Choosing certain month -->
+                        <span id="monthselect">
+                            <label> Month: 
+                                <select id="select-month">
+                                    <option value="2016-10">October 2016</option>
+                                    <option value="2016-11">November 2016</option>
+                                    <option value="2016-12">December 2016</option>
+                                    <option value="2017-01">January 2017</option>
+                                </select>
+                            </label>
+                        </span>
+                        <!-- Button to change graph -->
+                        <button type="button" class="btn btn-primary" id="change-graph">Change graph</button>
+                        <!--Button to download CSV file -->
+                        <button type="button" class="btn btn-primary" id="download-data">Download as CSV file</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+  </div>
+  <!--SCRIPTS FOR CHANGING GRAPH, SWITCHING TO PM10 OR PM2.5, MODAL DATEPICKERS, EXTENDING MODAL, MAP ANIMATION, GENERATNG CSV FILE -->
+  <script src="js/features.js"></script>
+  <!--SCRIPTS FOR CHANGING DATE-->      
+  <script src="js/date.js"></script>
+  <!--FUNCTION FOR UPDATING VISUALISATION -->
+  <script src="js/visualisation.js"></script>
+  <!--SCRIPTS FOR CHANGING HOUR -->
+  <script src="js/hour.js"></script>
+  <!--MAP, LEGEND AND INIT VISUALISATION-->
+  <script src="js/map.js"></script>
+
+  <div class="footer">Copyright &copy; 2017 <strong>www.pyly.kt.agh.edu.pl </strong>.</div>
+
+</body>
+</html>

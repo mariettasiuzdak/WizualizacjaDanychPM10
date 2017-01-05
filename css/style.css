@@ -1,0 +1,367 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+div#title {
+}
+
+img#header {
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 4px;
+    border-radius: 5px;
+}
+
+
+#title p{
+    text-align: center;
+    font-size: 45px;
+    font-family: Georgia;
+    color: #b2b2b2;
+}
+
+div#time {
+    margin-top: 10px;
+    border: solid #bdc3cc 1px;
+    border-radius: 13px;
+    padding: 0 0 15px;
+    width: 97%;
+}
+
+.slide {
+    margin-top: 10px;
+    margin-left: 50px;
+    width: 600px;
+}
+
+div#slider {
+    margin-left: 28px;
+    margin-right: -40px;
+    margin-top: -18px;
+}
+
+.glyphicon-time{
+    margin-left: -15px;
+    font-size: 18px;
+}
+
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+#tooltip {
+    /* background-color: white; */
+    opacity: 0.45;
+    /*border; 0px;*/
+    /*border-radius: 8px;*/
+    padding: 5px 8px;
+    /* border: 1px solid "#616161";*/
+    font-size: 16px;
+    color: "#616161";
+}
+#tooltip_nor {
+    /* background-color: white; */
+    opacity: 0.45;
+    /*border; 0px;*/
+    /*border-radius: 8px;*/
+    padding: 5px 18px;
+    /* border: 1px solid "#616161";*/
+    font-size: 16px;
+    color: "#616161";
+}
+
+
+.legend {
+    line-height: 18px;
+}
+.circle {
+    width: 20px;
+    height: 20px;
+    float: right;
+    
+}
+div.info {
+    background-color: white;
+    padding: 2px;
+    opacity: 0.8;
+}
+
+table { 
+    table-layout:fixed; width:100px;
+}
+
+div#info-time {
+    margin-left: 20px;
+}
+
+div#info-date {
+    margin-top: 5px;
+    margin-left: 8px;
+}
+
+div#info-sensor {
+    margin-top: 5px;
+    margin-left: 7px;
+}
+
+span#time-glyph {
+    margin-right: 5px;
+}
+
+span#date-glyph {
+    margin-right: 6px;
+}
+
+span#sensor-glyph {
+    margin-right: 6px;
+}
+
+div.infotitle {
+    float:left;
+    margin-right: 3px;
+    margin-top: -2px;
+}
+
+button#date-picker {
+    float:left;
+    margin-right: 10px;
+    margin-top: -4px;
+}
+
+button#date-range {
+    float:left;
+    margin-right: 10px;
+    margin-top: -4px;
+}
+
+input#datepicker {
+    width: 70%;
+    margin-left: 5%;
+}
+
+input#from, input#to {
+   /* width: 85px; */
+}
+
+label {
+    font-weight: 100!important;
+}
+
+span#play {
+    margin-left: -8px;
+    font-size: 135%;
+}
+
+span#time {
+    margin-left: -48px;
+}
+
+button#animate_button {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+div#heatmap {
+    border: solid 1px #ced3db;
+    border-radius: 6px;
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+div#options .select2-container {
+    width: 250% !important;
+}
+
+div#options .row{
+    margin-left: 10%;
+    padding: 10px;
+}
+
+div#options .btn{
+    float: right;
+    margin-top: 5%;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+    display: block;
+    margin: -58% !important;
+}
+
+.ui-widget .ui-widget {
+    font-size: 0em !important;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    right: 2% !important;
+}
+
+/* AXIS IN MODAL */
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+
+/* the rest */
+
+div#dialog .select2-container {
+    width: 15% !important;
+}
+
+.leaflet-bottom {
+    z-index: 1 !important;
+}
+
+.ui-widget-content {
+    z-index: 100 !important;
+}
+
+.ui-datepicker { position: relative; z-index: 10000 !important; }
+
+button.pm-choose {
+    background-color: #4b6faa;
+    border-color: #4b6faa;
+    opacity: 0.3;
+    width: 49%;
+    margin-bottom: 14px;
+}
+button.pm-choose:hover {
+    background-color: #273a59;
+    border-color: #273a59;
+}
+
+button.pm-choose.pm-chosen {
+    opacity: 1;
+    background-color: #4b6faa;
+    font-weight: bold;
+    border: solid 2px white;
+    padding: 7px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #4b6faa;
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    animation: spin 2s linear infinite;
+    top: 40%;
+    left: 47%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+div.container.loader-show {
+  opacity: 0.5;
+}
+
+body .extended.modal-dialog {
+    width: 1160px;
+}
+
+body .extended-footer.modal-footer {
+  text-align: center;
+}
+
+.two-graphs {
+  float: left;
+}
